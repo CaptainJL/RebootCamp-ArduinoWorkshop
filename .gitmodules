@@ -1,0 +1,3 @@
+[submodule "DigitShield"]
+	path = DigitShield
+	url = https://github.com/nootropicdesign/digit-shield.git
