@@ -33,7 +33,7 @@ int ballvx = 1;
 int ballvy = 1;
 
 // Change bat size to 1, 2, or 3 for difficulty setting.
-int mysize = 3;
+int mysize = 2;
 
 void setup() {
   // put your setup code here, to run once:
@@ -42,14 +42,17 @@ void setup() {
   matrix.setBrightness(40);
   randomSeed(analogRead(0));
   Serial.begin(9600);
-  ballx = random(0, 7);  // Random ball start position
+  ballx = random(0, 7);
+  ballvx = random(-1, 1);
+  bally = 1;    
+  ballvy = 1;
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
   DigitShield.setValue(score);
   analogX = analogRead(PIN_ANALOG_X);
-  myx = map(analogX, 0, 900, 6, 0);
+  myx = map(analogX, 0, 850, 6, 0);
   if (mysize == 3) {  // Bat size 3
     myxleft = myx - 1;
     myxright = myx + 1;
@@ -72,8 +75,14 @@ void loop() {
   mscount++;
 
   if (mscount > gamespeed) {  // Create new frame
-    Serial.print("Gamespeed: ");
-    Serial.println(gamespeed);
+//    Serial.print("Gamespeed: ");
+//    Serial.println(gamespeed);
+    Serial.print("myx: ");
+    Serial.println(myx);
+//    Serial.print(", analogX: ");
+//    Serial.println(analogX);
+    Serial.print("bally: ");
+    Serial.println(bally);
     mscount = 0;
 
     // Bounce ball off the walls
@@ -98,10 +107,10 @@ void loop() {
           
         }
         if (ballx == myxright) {  // If on the right of the bat, bounce the ball right
-          ballvx = abs(ballvx);
+          ballvx = 1;
         }
         else if (ballx == myxleft) {  // If on the left of the bat, bounce the ball left
-          ballvx = -abs(ballvx);
+          ballvx = -1;
         }
         else {  // If in the middle of the bat, bounce normally
           
@@ -114,6 +123,10 @@ void loop() {
     else if (bally < 1) {   // Ball missed the bat. Game over!
       score = 0;
       gamespeed = 160; 
+      ballx = random(0, 7);
+      ballvx = random(-1, 1);
+      bally = 1;    
+      ballvy = 1;
     }
   }
   
@@ -121,6 +134,10 @@ void loop() {
     matrix.fillScreen(0);
     gamespeed = 160;
     score = 0;
+    ballx = random(0, 7);
+    ballvx = random(-1, 1);
+    bally = 1;    
+    ballvy = 1;
   }
 
   matrix.fillScreen(0);
