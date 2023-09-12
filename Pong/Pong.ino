@@ -33,7 +33,7 @@ int ballvx = 1;
 int ballvy = 1;
 
 // Change bat size to 1, 2, or 3 for difficulty setting.
-int mysize = 2;
+int mysize = 3;
 
 void setup() {
   // put your setup code here, to run once:
@@ -41,7 +41,6 @@ void setup() {
   matrix.begin();
   matrix.setBrightness(40);
   randomSeed(analogRead(0));
-  Serial.begin(9600);
   ballx = random(0, 7);
   ballvx = random(-1, 1);
   bally = 1;    
@@ -75,14 +74,6 @@ void loop() {
   mscount++;
 
   if (mscount > gamespeed) {  // Create new frame
-//    Serial.print("Gamespeed: ");
-//    Serial.println(gamespeed);
-    Serial.print("myx: ");
-    Serial.println(myx);
-//    Serial.print(", analogX: ");
-//    Serial.println(analogX);
-    Serial.print("bally: ");
-    Serial.println(bally);
     mscount = 0;
 
     // Bounce ball off the walls
@@ -100,16 +91,19 @@ void loop() {
     }
     bally = bally + ballvy;
 
-    if (ballvy < 0 && bally == 1) {  // Check if ball is on top of the bat
-      if (ballx <= myxright && ballx >= myxleft) {  // Check if ball is on top of the bat
-        
-        if (mysize == 1) {  // If the bat is only 1 pixel size, bounce the ball normally
+    if (ballvy < 0 && bally == 1) {
+      // Check if ball is on top of the bat
+      if (ballx <= myxright && ballx >= myxleft) {  
+        // If the bat is only 1 pixel size, bounce the ball normally
+        if (mysize == 1) {  
           
         }
-        if (ballx == myxright) {  // If on the right of the bat, bounce the ball right
+        // If on the right of the bat, bounce the ball right
+        if (ballx == myxright) {  
           ballvx = 1;
         }
-        else if (ballx == myxleft) {  // If on the left of the bat, bounce the ball left
+        // If on the left of the bat, bounce the ball left
+        else if (ballx == myxleft) {  
           ballvx = -1;
         }
         else {  // If in the middle of the bat, bounce normally

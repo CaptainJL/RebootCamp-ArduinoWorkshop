@@ -42,13 +42,15 @@ void loop() {
   myx = map(myx, 0, 900, 7, 0);
   firebutton = digitalRead(A1);
 
-  // When Shooting, but only allow shoot if bullet has hit enemy or has hit the bottom of the screen
+  // When Shooting, only allow shoot if:
+  // - bullet has hit enemy or, 
+  // - bullet has hit the bottom of the screen
   if (firebutton == 1 && bullety < 0) {
     bulletx = myx;
     bullety = myy-2;
   }
 
-  // mscount states how many 'loops' will it take to create a new frame
+  // Loop counter
   mscount++;
 
   if (mscount > gamespeed) {  // Create new frame
@@ -57,7 +59,8 @@ void loop() {
     bullety--;
   }
 
-  if (bulletx == enemyx && bullety == enemyy) {  // When hitting enemy
+  // When hitting enemy
+  if (bulletx == enemyx && bullety == enemyy) {  
     score++;
     DigitShield.setValue(score);
     // Explode enemy
@@ -68,8 +71,9 @@ void loop() {
     matrix.drawPixel(myx,myy-1, BLUE);
     matrix.fillCircle(enemyx, enemyy, 1, RED);
     matrix.show();
-    
-    if (score == 5) {    // WIN if enemy hit and then Score is 5 
+
+    // WIN if enemy hit and then Score is 5 
+    if (score == 5) {    
       // Blink score counter
       DigitShield.setBlank(true);     
       delay(250);    
@@ -88,7 +92,7 @@ void loop() {
     }
 
     delay(250); 
-    bullety = -1;               // Make bullet dissapear 
+    bullety = -1;        // Make bullet dissapear 
     enemyy = 0;
     enemyx = 0;
     gamespeed = gamespeed - 10; // Make it faster

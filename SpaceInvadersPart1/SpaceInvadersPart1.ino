@@ -33,7 +33,7 @@ void setup() {
 //  pinMode(buzzerPin, OUTPUT);
   DigitShield.begin();
   matrix.begin();
-  matrix.setBrightness(40);
+  matrix.setBrightness(10);
 }
 
 void loop() {
@@ -48,7 +48,7 @@ void loop() {
     bullety = myy-2;
   }
 
-  // mscount states how many 'loops' will it take to create a new frame
+  // loop counter
   mscount++;
 
   if (mscount > gamespeed) {  // Create new frame
@@ -57,7 +57,8 @@ void loop() {
     bullety--;
   }
 
-  if (bulletx == enemyx && bullety == enemyy) {  // When hitting enemy
+  // When hitting enemy
+  if (bulletx == enemyx && bullety == enemyy) {  
     score++;
     enemyy = 0;
     enemyx = 0;
@@ -96,5 +97,4 @@ void loop() {
   matrix.drawPixel(enemyx,enemyy, RED);
   matrix.drawPixel(bulletx,bullety, YELLOW);
   matrix.show();
-
 }
