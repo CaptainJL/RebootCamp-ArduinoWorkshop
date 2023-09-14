@@ -19,7 +19,7 @@ int PURPLE = matrix.Color(255,0,255);
 void setup() {
   // put your setup code here, to run once:
   matrix.begin();
-  matrix.setBrightness(40);
+  matrix.setBrightness(10);
 }
 
 void loop() {
@@ -41,7 +41,7 @@ void loop() {
   // Winking happy face
   matrix.fillScreen(0);          // Turn off all the LEDs
   matrix.fillRect(1,5,2,2,RED);  // Left Eye
-  matrix.drawLine(5,5,6,5,RED);  // Right Winking Eye
+  matrix.drawLine(5,5,6,5,GREEN);// Right Winking Eye
   // Mouth
   matrix.drawLine(2,1,5,1,RED);  // Bottom of mouth
   matrix.drawPixel(0,3,RED);
@@ -49,6 +49,5 @@ void loop() {
   matrix.drawPixel(6,2,RED);
   matrix.drawPixel(7,3,RED);  
   matrix.show();
-  delay(400); 
-  
+  delay(400);   
 }
