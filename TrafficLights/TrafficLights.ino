@@ -1,6 +1,6 @@
-int redlight = 6;
-int yellowlight = 9;
-int greenlight = 5;
+int redlight = 13;
+int yellowlight = 12;
+int greenlight = 11;
 
 void setup() {
   // put your setup code here, to run once:
